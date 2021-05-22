@@ -1,0 +1,34 @@
+@import 'breakpoints';
+
+.tasks__filter__container {
+  width: 100%;
+  height: 40px;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px 0px;
+}
+
+.filter__search {
+  display: flex;
+
+  button {
+    margin-right: 10px;
+  }
+}
+
+@media (max-width: $tablet) {
+  .tasks__filter__container {
+    flex-direction: column;
+    height: auto;
+  }
+
+  .filter__search {
+    margin-top: 20px;
+    flex-direction: column;
+
+    button {
+      margin-right: 0px;
+      margin-bottom: 10px;
+    }
+  }
+}

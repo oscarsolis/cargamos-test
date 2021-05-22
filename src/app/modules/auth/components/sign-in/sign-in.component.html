@@ -1,0 +1,25 @@
+<form [formGroup]="signInForm" (ngSubmit)="onSubmit()">
+  <div>
+    <mat-form-field class="form-field">
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" type="text" />
+    </mat-form-field>
+
+    <mat-form-field class="form-field">
+      <mat-label>Contraseña</mat-label>
+      <input matInput formControlName="password" type="password" />
+    </mat-form-field>
+  </div>
+
+  <div class="sign_in__buttons">
+    <button
+      mat-raised-button
+      color="primary"
+      type="submit"
+      [disabled]="isVerifyingUser"
+    >
+      Iniciar Sesión
+    </button>
+  </div>
+
+</form>

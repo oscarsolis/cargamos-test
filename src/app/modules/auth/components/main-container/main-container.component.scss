@@ -1,0 +1,21 @@
+@import 'breakpoints';
+
+.auth__container {
+  padding: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .auth__card {
+    width: 40%;
+  }
+}
+
+@media (max-width: $mobileL) {
+  .auth__container {
+
+    .auth__card {
+      width: 100%;
+    }
+  }
+}

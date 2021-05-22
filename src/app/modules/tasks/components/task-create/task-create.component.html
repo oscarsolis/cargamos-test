@@ -1,0 +1,53 @@
+<h2 mat-dialog-title>
+  {{ data ? 'Editar tarea' : 'Crear Tarea' }}
+</h2>
+
+<mat-dialog-content>
+  <form [formGroup]="taskForm" (submit)="onSubmit()">
+    <div>
+      <mat-form-field class="form-field">
+        <mat-label>Descripción</mat-label>
+        <input matInput formControlName='description' />
+      </mat-form-field>
+    </div>
+    <div>
+      <mat-form-field class="form-field">
+        <mat-label>Duración</mat-label>
+        <mat-select formControlName="duration" (selectionChange)="onChangeDuration($event)">
+          <mat-option [value]="time?.value" *ngFor="let time of taskTimes">
+            {{ time?.label }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div *ngIf="taskForm.get('duration').value === 0">
+      <!-- <mat-form-field class="form-field">
+        <mat-label>Tiempo</mat-label>
+        <input matInput formControlName='customTime' />
+      </mat-form-field> -->
+      <mat-form-field class="form-field">
+        <mat-label>Tiempo (hh:mm)</mat-label>
+        <app-input-time formControlName='customTime'></app-input-time>
+      </mat-form-field>
+    </div>
+  </form>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button
+    [disabled]="showLoading"
+    mat-button
+    mat-dialog-close
+  >
+    Cancelar
+  </button>
+  <button
+    [disabled]="showLoading"
+    mat-raised-button
+    color="primary"
+    type="submit"
+    (click)="onSubmit()"
+  >
+    Guardar
+  </button>
+</mat-dialog-actions>

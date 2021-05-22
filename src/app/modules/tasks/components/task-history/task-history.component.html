@@ -1,0 +1,67 @@
+<h1 mat-dialog-title>Historial</h1>
+
+<mat-dialog-content>
+
+  <div class="table__responsive">
+    <ng-container *ngIf="tasks?.length; else elseTemplate">
+      <table
+        mat-table
+        [dataSource]="tasks"
+        class="tasks__table"
+      >
+        <ng-container matColumnDef="description">
+          <th
+            mat-header-cell
+            *matHeaderCellDef>
+            Descripción de la tarea
+          </th>
+          <td
+            mat-cell
+            *matCellDef="let task">
+            {{ task?.description }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="duration">
+          <th
+            mat-header-cell
+            *matHeaderCellDef>
+            Tiempo asignado a la tarea
+          </th>
+          <td
+            mat-cell
+            *matCellDef="let task">
+            {{ task?.duration | time }}
+          </td>
+        </ng-container>
+
+        <ng-container matColumnDef="time_to_finish">
+          <th
+            mat-header-cell
+            *matHeaderCellDef>
+            Tiempo en completarse
+          </th>
+          <td
+            mat-cell
+            *matCellDef="let task">
+          {{ task?.timeUsed | time }}
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: tableColumns;"></tr>
+      </table>
+      </ng-container>
+      <ng-template #elseTemplate>
+        <app-without-data></app-without-data>
+      </ng-template>
+    </div>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button
+    mat-button
+    mat-dialog-close>
+    Cerrar
+  </button>
+</mat-dialog-actions>

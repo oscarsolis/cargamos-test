@@ -1,0 +1,11 @@
+<mat-toolbar class="bg--black">
+  <img src="assets/images/cargamos_logo.png" class="header__brand" alt="cargamos_logo" />
+  <span class="header__spacer"></span>
+  <button
+    mat-button
+    *ngIf="authService.isLoggedIn"
+    (click)="authService.signOut()"
+  >
+    Cerrar Sesión
+  </button>
+</mat-toolbar>

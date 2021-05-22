@@ -1,0 +1,27 @@
+<div class="tasks__filter__container">
+  <button
+    mat-raised-button
+    color="primary"
+    (click)="createTask.emit()"
+  >
+    Crear Tarea
+  </button>
+
+  <div class="filter__search">
+    <button
+    mat-raised-button
+    color="primary"
+    (click)="showHistory.emit()"
+    >
+      Ver Historial
+    </button>
+    <mat-form-field>
+      <mat-label>Duración</mat-label>
+      <mat-select (selectionChange)="onChangeDuration($event)">
+        <mat-option [value]="time?.id" *ngFor="let time of taskTimes">
+          {{ time?.label }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+</div>

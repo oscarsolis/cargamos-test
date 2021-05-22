@@ -1,0 +1,14 @@
+@import '../colors';
+
+.mat-menu-content {
+  background: $gray;
+
+  button.mat-menu-item {
+    color: white;
+    border-bottom: 1px solid white;
+
+    &:last-child {
+      border-bottom: 0px;
+    }
+  }
+}

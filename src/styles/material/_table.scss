@@ -1,0 +1,10 @@
+@import '../colors';
+
+th.mat-header-cell {
+  background: $gray;
+  color: white;
+  border-left: 1px solid white;
+  padding-left: 10px !important;
+  padding-right: 10px !important;
+  white-space: nowrap;
+}

@@ -1,0 +1,21 @@
+<div
+  role="group"
+  class="input-container"
+  [formGroup]="parts"
+  [attr.aria-labelledby]="formField?.getLabelId()">
+  <input class="input-element"
+    formControlName="hours" size="2"
+    maxLength="2"
+    aria-label="Hours"
+    (input)="_handleInput(parts.controls.minutes, minutesInput)"
+    #hours>
+  <span class="input-spacer">:</span>
+  <input class="input-element"
+    formControlName="minutes"
+    maxLength="2"
+    size="2"
+    aria-label="Minutes"
+    (input)="_handleInput(parts.controls.hours)"
+    (keyup.backspace)="autoFocusPrev(parts.controls.minutes, hoursInput)"
+    #minutes>
+</div>

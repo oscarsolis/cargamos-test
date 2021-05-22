@@ -1,0 +1,115 @@
+<app-header></app-header>
+
+<div class="tasks__container">
+
+  <app-task-filter
+    (createTask)="onCreateOrUpdateTask()"
+    (showHistory)="onShowHistory()"
+  >
+  </app-task-filter>
+
+  <div class="table__responsive">
+    <table
+      mat-table
+      [dataSource]="tasks"
+      [trackBy]="trackTask"
+      class="tasks__table"
+    >
+      <ng-container matColumnDef="description">
+        <th mat-header-cell *matHeaderCellDef>Descripción de la tarea</th>
+        <td mat-cell *matCellDef="let task">
+          {{ task?.description }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="duration">
+        <th mat-header-cell *matHeaderCellDef>Tiempo asignado a la tarea</th>
+        <td mat-cell *matCellDef="let task">
+          {{ task?.duration | time }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="time_remaining">
+        <th mat-header-cell *matHeaderCellDef>Tiempo restante</th>
+        <td mat-cell *matCellDef="let task">
+          <div
+            appCounterDownTimer
+            [time]="task?.timeRemaing"
+            [start]="task?.state === 'IN_PROGRESS'"
+            (timeRemaing)="onChange($event, task)"
+            (taskFinished)="onClickFinishTask(task, $event)">
+          </div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="controls">
+        <th mat-header-cell *matHeaderCellDef>Controles</th>
+        <td mat-cell *matCellDef="let task">
+          <div class="example-flex-container">
+            <button
+              mat-icon-button
+              color="primary"
+              [disabled]="['IN_PROGRESS', 'FINISHED'].includes(task?.state)"
+              (click)="onClickStartTask(task)"
+            >
+              <mat-icon>play_arrow</mat-icon>
+            </button>
+            <button
+              mat-icon-button
+              color="primary"
+              [disabled]="task?.state !== 'IN_PROGRESS'"
+              (click)="onClickPauseTask(task)">
+              <mat-icon>pause</mat-icon>
+            </button>
+            <button mat-icon-button color="primary" >
+              <mat-icon>replay</mat-icon>
+            </button>
+          </div>
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="status">
+        <th mat-header-cell *matHeaderCellDef>Finalizada</th>
+        <td mat-cell *matCellDef="let task">
+          {{ task?.state }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="time_to_finish">
+        <th mat-header-cell *matHeaderCellDef>Tiempo en completarse</th>
+        <td mat-cell *matCellDef="let task">
+          {{ task?.timeUsed | time }}
+        </td>
+      </ng-container>
+
+      <ng-container matColumnDef="options">
+        <th mat-header-cell *matHeaderCellDef>Opciones</th>
+        <td mat-cell *matCellDef="let task">
+          <button mat-button [matMenuTriggerFor]="menu">Menu</button>
+          <mat-menu #menu="matMenu">
+            <button
+              mat-menu-item
+              (click)="onCreateOrUpdateTask(task)">
+              Editar
+            </button>
+            <button
+              mat-menu-item
+              (click)="onDeleteTask(task)">
+              Borrar
+            </button>
+            <button
+              mat-menu-item
+              (click)="onClickFinishTask(task)">
+              Finalizar
+            </button>
+          </mat-menu>
+        </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="tableColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: tableColumns;"></tr>
+    </table>
+
+    <app-without-data *ngIf="!tasks?.length"></app-without-data>
+  </div>
+</div>
